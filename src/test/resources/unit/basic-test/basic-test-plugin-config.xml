@@ -1,0 +1,16 @@
+<project>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>ddfclient-maven-plugin</artifactId>
+                <configuration>
+                    <paramsFile>${basedir}/src/test/resources/unit/basic-test/testParams.txt</paramsFile>
+                    <host>localhost</host>
+                    <port>8101</port>
+                    <user>admin</user>
+                    <password>admin</password>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
