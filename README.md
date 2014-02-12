@@ -20,8 +20,10 @@ cd ddf-maven-plugin
 ```
 
 ```
-mvn install
+mvn install -DskipTests
 ```
+
+Note: skipping tests is currently necessary due to the tests expecting ddf to be running locally
 
 ## Usage
 Place the following in the build section of your projects pom for basic usage
