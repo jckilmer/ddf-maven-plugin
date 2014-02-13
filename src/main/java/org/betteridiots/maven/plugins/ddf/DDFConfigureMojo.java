@@ -11,13 +11,16 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 
-import java.io.*;
-
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.FileNotFoundException;
 
 @Mojo( name = "config-ddf", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST )
-public class DDFClient extends AbstractMojo
+public class DDFConfigureMojo extends AbstractMojo
 {
-    
+
     // File containing DDF commands
     @Parameter( property = "config-ddf.paramsFile")
     private String paramsFile;
@@ -25,7 +28,7 @@ public class DDFClient extends AbstractMojo
     // DDF User
     @Parameter( property = "config-ddf.user", defaultValue = "admin" )
     private String user;
-   
+
     // DDF Password
     @Parameter( property = "config-ddf.password", defaultValue = "admin" )
     private String password;
@@ -125,4 +128,5 @@ public class DDFClient extends AbstractMojo
             e.printStackTrace();
         }
     }
+
 }
