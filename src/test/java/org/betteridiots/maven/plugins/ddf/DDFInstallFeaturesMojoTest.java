@@ -4,7 +4,7 @@ import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 import java.io.File;
 
-public class DDFClientMojoTest extends AbstractMojoTestCase
+public class DDFInstallFeaturesMojoTest extends AbstractMojoTestCase
 {
     protected void setUp() throws Exception
     {
@@ -15,7 +15,7 @@ public class DDFClientMojoTest extends AbstractMojoTestCase
     {
         File testPom = new File( getBasedir(), "src/test/resources/unit/basic-test/basic-test-plugin-config.xml" );
 
-        DDFClient mojo = (DDFClient) lookupMojo( "config-ddf", testPom );
+        DDFInstallFeaturesMojo mojo = (DDFInstallFeaturesMojo) lookupMojo( "install-features", testPom );
 
         // Check for null values
         assertNotNull( mojo );
@@ -33,7 +33,7 @@ public class DDFClientMojoTest extends AbstractMojoTestCase
 //    {
 //        File testPom = new File( getBasedir(), "src/test/resources/unit/test-defaults/test-ddfclient-maven-plugin-defaults.xml" );
 //
-//        DDFClient mojo = ( DDFClient ) lookupMojo( "config-ddf", testPom );
+//        DDFInstallFeaturesMojo mojo = ( DDFInstallFeaturesMojo ) lookupMojo( "config-ddf", testPom );
 //
 //        // Check that parameters are not null
 //        try {

@@ -2,7 +2,7 @@
     <build>
         <plugins>
             <plugin>
-                <artifactId>ddfclient-maven-plugin</artifactId>
+                <artifactId>ddf-maven-plugin</artifactId>
                 <configuration>
                     <paramsFile>${basedir}/src/test/resources/unit/test-defaults/testParams.txt</paramsFile>
                 </configuration>
