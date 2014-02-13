@@ -13,27 +13,22 @@ The plugin will eventually support more advanced configuration options, to be pa
 * Maven 3
 
 ### How To Build
-Clone the project then run
 
 ```
+git clone https://github.com/betteridiots/ddf-maven-plugin.git
 cd ddf-maven-plugin
-```
-
-```
 mvn install -DskipTests
 ```
-
 Note: skipping tests is currently necessary due to the tests expecting ddf to be running locally
 
 ## Usage
-Place the following in the build section of your projects pom for basic usage
+Place the following in the build section of your projects pom for basic usage against a single ddf host
 
     <plugin>
       <groupId>org.betteridiots.ddf</groupId>
       <artifactId>ddf-maven-plugin</artifactId>
-      <version>0.1-SNAPSHOT</version>
+      <version>0.1.0-SNAPSHOT</version>
       <configuration>
-        <paramsFile>path/to/ddfCommands/file</paramsFile>
         <host>localhost</host>
         <port>8101</port>
         <user>admin</user>
@@ -41,10 +36,62 @@ Place the following in the build section of your projects pom for basic usage
       </configuration>
       <executions>
         <execution>
+          <id>install-features</id>
+          <phase>pre-integration-test</phase>
+          <goals>
+            <goal>install-features</goal>
+          </goals>
+          <configuration>
+            <paramsFile>resources/ddfFeatures.txt</paramsFile>
+          </configuration>
+        </execution>
+        <execution>
+          <id>config-ddf</id>
+          <phase>pre-integration-test</phase>
           <goals>
             <goal>config-ddf</goal>
           </goals>
+          <configuration>
+            <paramsFile>resources/ddfConfig.txt</paramsFile>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+    
+### For Multiple DDF Instances
+
+    <plugin>
+      <groupId>org.betteridiots.ddf</groupId>
+      <artifactId>ddf-maven-plugin</artifactId>
+      <version>0.1.0-SNAPSHOT</version>
+      <executions>
+        <execution>
+          <id>install-features_ddf_1</id>
           <phase>pre-integration-test</phase>
+          <goals>
+            <goal>install-features</goal>
+          </goals>
+          <configuration>
+            <paramsFile>resources/ddfFeatures.txt</paramsFile>
+			<host>localhost</host>
+            <port>8101</port>
+		    <user>admin</user>
+        	<password>admin</password>
+          </configuration>
+        </execution>
+        <execution>
+          <id>install_features_ddf_2</id>
+          <phase>pre-integration-test</phase>
+          <goals>
+            <goal>install-features</goal>
+          </goals>
+          <configuration>
+            <paramsFile>resources/ddfFeatures.txt</paramsFile>
+			<host>remote_dib_ip</host>
+			<port>8101</port>
+			<user>admin</user>
+			<password>admin</password>
+          </configuration>
         </execution>
       </executions>
     </plugin>
