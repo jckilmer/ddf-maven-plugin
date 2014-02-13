@@ -1,4 +1,4 @@
-# DDF Client Maven Plugin
+# DDF Maven Plugin
 The ddfclient-maven-plugin enables configuration of the ddf from within a maven project and is intended for use during integration tests.
 
 ## Current Status
