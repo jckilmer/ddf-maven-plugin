@@ -25,6 +25,10 @@ public class DDFConfigureMojo extends AbstractMojo
     @Parameter( property = "config-ddf.paramsFile")
     private String paramsFile;
 
+    // Array of parameters to be inserted into ddf config command
+    @Parameter( property = "config-ddf.configs")
+    private String[] configs;
+
     // DDF User
     @Parameter( property = "config-ddf.user", defaultValue = "admin" )
     private String user;
@@ -51,32 +55,48 @@ public class DDFConfigureMojo extends AbstractMojo
         getLog().info( "DDF password is: " + password );
         getLog().info( "DDF parameter file is: " + paramsFile );
 
-        // Initialize FileReader
-        FileReader fileReader = null;
-        try {
-            fileReader = new FileReader(paramsFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
         // Initialize BufferedReader and commands ArrayList
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
         StringBuffer params = new StringBuffer();
         String line;
-
-        // Parse paramsFile into commands single string
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                params.append(line +"; ");
+        
+        if (paramsFile != null) {
+            
+            // Initialize FileReader
+            FileReader fileReader = null;
+            try {
+                fileReader = new FileReader(paramsFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try
-        {
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+
+            // Parse paramsFile into commands single string
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+                    params.append(line +"; ");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            try
+            {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+	}else{
+            try {
+                Iterator<String> configIter = configs.iterator();
+                
+                while (configIter.hasNext()) {
+                  String config = configIter.next();
+                  params.append(config+"; ");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         // Disable strict host key checking and set auth method to password
