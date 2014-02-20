@@ -87,15 +87,9 @@ public class DDFConfigureMojo extends AbstractMojo
                 e.printStackTrace();
             }
 	}else{
-            try {
-                Iterator<String> configIter = configs.iterator();
-                
-                while (configIter.hasNext()) {
-                  String config = configIter.next();
-                  params.append(config+"; ");
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+
+	    for (String config : configs){
+                params.append(config+"; ");
             }
         }
 
