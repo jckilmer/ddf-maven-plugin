@@ -4,7 +4,7 @@ import org.apache.maven.plugin.testing.AbstractMojoTestCase;
 
 import java.io.File;
 
-public class DDFConfigureMojoTest extends AbstractMojoTestCase
+public class DDFInstallAppMojoTest extends AbstractMojoTestCase
 {
     protected void setUp() throws Exception
     {
@@ -13,9 +13,9 @@ public class DDFConfigureMojoTest extends AbstractMojoTestCase
 
     public void testMojoGoal() throws Exception
     {
-        File testPom = new File( getBasedir(), "src/test/resources/unit/config-test/config-test.xml" );
+        File testPom = new File( getBasedir(), "src/test/resources/unit/install-app-test/install-app-test.xml" );
 
-        DDFConfigureMojo mojo = (DDFConfigureMojo) lookupMojo( "config-ddf", testPom );
+        DDFInstallAppMojo mojo = (DDFInstallAppMojo) lookupMojo( "install-app-ddf", testPom );
 
         // Check for null values
         assertNotNull( mojo );
@@ -23,7 +23,6 @@ public class DDFConfigureMojoTest extends AbstractMojoTestCase
         assertNotNull( getVariableValueFromObject( mojo, "port" ) );
         assertNotNull( getVariableValueFromObject( mojo, "user" ) );
         assertNotNull( getVariableValueFromObject( mojo, "password" ) );
-        assertNotNull( getVariableValueFromObject( mojo, "paramsFile" ) );
 
         // Execute mojo test
         mojo.execute();
