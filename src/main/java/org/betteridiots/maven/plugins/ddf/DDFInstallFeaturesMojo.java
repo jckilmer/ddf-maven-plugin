@@ -13,28 +13,39 @@ import org.apache.maven.plugins.annotations.Parameter;
 
 import java.io.*;
 
-
+/**
+ * The install-features goal is used to install/uninstall features for the ddf
+ */
 @Mojo( name = "install-features", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST )
 public class DDFInstallFeaturesMojo extends AbstractMojo
 {
-    
-    // File containing DDF commands
+    /**
+     * File containing DDF commands (optional)
+     */
     @Parameter( property = "config-ddf.paramsFile")
     private String paramsFile;
 
-    // DDF User
+    /**
+     * Username credentials for accessing ddf
+     */
     @Parameter( property = "config-ddf.user", defaultValue = "admin" )
     private String user;
-   
-    // DDF Password
+
+    /**
+     * Password for accessing the ddf
+     */
     @Parameter( property = "config-ddf.password", defaultValue = "admin" )
     private String password;
 
-    // DDF Host
+    /**
+     * Hostname or IP address of the ddf
+     */
     @Parameter( property = "config-ddf.host", defaultValue = "localhost" )
     private String host;
 
-    // DDF SSH Port
+    /**
+     * SSH Port for the ddf
+     */
     @Parameter( property = "config-ddf.port", defaultValue = "8101" )
     private int port;
 
