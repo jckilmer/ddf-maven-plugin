@@ -17,31 +17,47 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.FileNotFoundException;
 
+
+/**
+ * The config-ddf goal is used for passing configuration options into the ddf kernel
+ */
 @Mojo( name = "config-ddf", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST )
 public class DDFConfigureMojo extends AbstractMojo
 {
 
-    // File containing DDF commands
+    /**
+     * File containing DDF commands (optional)
+     */
     @Parameter( property = "config-ddf.paramsFile")
     private String paramsFile;
 
-    // Array of parameters to be inserted into ddf config command
+    /**
+     * Array of parameters to be inserted into ddf config command
+     */
     @Parameter( property = "config-ddf.configs")
     private String[] configs;
 
-    // DDF User
+    /**
+     * Username credentials for accessing ddf
+     */
     @Parameter( property = "config-ddf.user", defaultValue = "admin" )
     private String user;
 
-    // DDF Password
+    /**
+     * Password for accessing the ddf
+     */
     @Parameter( property = "config-ddf.password", defaultValue = "admin" )
     private String password;
 
-    // DDF Host
+    /**
+     * Hostname or IP address of the ddf
+     */
     @Parameter( property = "config-ddf.host", defaultValue = "localhost" )
     private String host;
 
-    // DDF SSH Port
+    /**
+     * SSH Port for the ddf
+     */
     @Parameter( property = "config-ddf.port", defaultValue = "8101" )
     private int port;
 
