@@ -24,6 +24,14 @@
         <url>https://github.com/betteridiots/ddf-maven-plugin.git</url>
     </scm>
 
+    <developers>
+        <developer>
+            <id>michael.oconnor</id>
+            <name>Michael O'Connor</name>
+            <email>michael.oconnor@betteridiots.org</email>
+        </developer>
+    </developers>
+
     <organization>
         <name>Better Idiots Software</name>
         <url>http://betteridiots.org</url>
@@ -154,6 +162,18 @@
                                     <goal>install</goal>
                                     <goal>integration-test</goal>
                                     <goal>verify</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
                                 </goals>
                             </execution>
                         </executions>
