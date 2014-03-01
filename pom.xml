@@ -9,10 +9,14 @@
 
     <name>DDF Maven Plugin</name>
     <description>The DDF Client Maven Plugin is used to configure the DDF for integration tests</description>
+    <prerequisites>
+        <maven>3</maven>
+    </prerequisites>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/betteridiots/ddf-maven-plugin/issues</url>
+    </issueManagement>
 
     <distributionManagement>
         <snapshotRepository>
@@ -20,6 +24,39 @@
             <url>https://nexus.macefusion.com/nexus/content/repositories/snapshots</url>
         </snapshotRepository>
     </distributionManagement>
+
+    <scm>
+        <connection>scm:git:https://github.com/betteridiots/ddf-maven-plugin.git</connection>
+        <developerConnection>scm:git:https://github.com/betteridiots/ddf-maven-plugin.git</developerConnection>
+        <url>https://github.com/betteridiots/ddf-maven-plugin.git</url>
+    </scm>
+
+    <organization>
+        <name>Better Idiots Software</name>
+        <url>http://betteridiots.org</url>
+    </organization>
+
+    <licenses>
+        <license>
+            <name>The MIT License (MIT)</name>
+            <url>http://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-plugin-plugin</artifactId>
+                <version>3.2</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <dependencies>
         <dependency>
