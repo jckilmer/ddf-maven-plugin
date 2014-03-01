@@ -25,22 +25,22 @@
                     <port>8101</port>
                     <user>admin</user>
                     <password>admin</password>
-                    <ddfHome>${DDF_HOME}</ddfHome>
-                    <apps>
-                      <app>platform-app</app>
-                      <!--app>
-                        <groupId>ddf.platform</groupId>
-                        <artifactId>platform-app</artifactId>
-                        <version>RELEASE</version>
-                        <type>kar</type>
-                      </app>
-                      <app>
-                        <groupId>ddf.catalog</groupId>
-                        <artifactId>catalog-app</artifactId>
-                        <version>RELEASE</version>
-                        <type>kar</type>
-                      </app-->
-                    </apps>
+                    <deploy>${env.DDF_HOME}</deploy>
+                    <!--<apps>-->
+                      <!--<app>platform-app</app>-->
+                      <!--&lt;!&ndash;app>-->
+                        <!--<groupId>ddf.platform</groupId>-->
+                        <!--<artifactId>platform-app</artifactId>-->
+                        <!--<version>RELEASE</version>-->
+                        <!--<type>kar</type>-->
+                      <!--</app>-->
+                      <!--<app>-->
+                        <!--<groupId>ddf.catalog</groupId>-->
+                        <!--<artifactId>catalog-app</artifactId>-->
+                        <!--<version>RELEASE</version>-->
+                        <!--<type>kar</type>-->
+                      <!--</app&ndash;&gt;-->
+                    <!--</apps>-->
                 </configuration>
             </plugin>
         </plugins>
