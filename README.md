@@ -1,6 +1,9 @@
 # DDF Maven Plugin
 The ddfclient-maven-plugin enables configuration of the ddf from within a maven project and is intended for use during integration tests.
 
+[![Build Status](https://travis-ci.org/betteridiots/ddf-maven-plugin.png?branch=master)](https://travis-ci.org/betteridiots/ddf-maven-plugin)
+
+
 ## Current Status
 Currently the plugin is in the very early stages. As it is currently designed the ddfclient-maven-plugin simply takes in several parameters and connects to the ddf over ssh to pass in commands for configuration.
 
