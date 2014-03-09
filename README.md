@@ -3,6 +3,11 @@ The ddfclient-maven-plugin enables configuration of the ddf from within a maven 
 
 [![Build Status](https://travis-ci.org/betteridiots/ddf-maven-plugin.png?branch=master)](https://travis-ci.org/betteridiots/ddf-maven-plugin)
 
+# Issue Tracking
+[issues.betteridiots.org/browse/DMP](JIRA)
+
+<script type="text/javascript" src="http://issues.betteridiots.org/s/d41d8cd98f00b204e9800998ecf8427e/en_USfldw7o-1988229788/6252/12/1.4.7/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=3653817d"></script>
+
 
 ## Current Status
 Currently the plugin is in the very early stages. As it is currently designed the ddfclient-maven-plugin simply takes in several parameters and connects to the ddf over ssh to pass in commands for configuration.
