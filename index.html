@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <title>ddf-maven-plugin by betteridiots</title>
+  </head>
+
+  <body>
+
+    <header>
+      <div class="container">
+        <h1>ddf-maven-plugin</h1>
+        <h2>DDF Maven Plugin</h2>
+
+        <section id="downloads">
+          <a href="https://github.com/betteridiots/ddf-maven-plugin/zipball/master" class="btn">Download as .zip</a>
+          <a href="https://github.com/betteridiots/ddf-maven-plugin/tarball/master" class="btn">Download as .tar.gz</a>
+          <a href="https://github.com/betteridiots/ddf-maven-plugin" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
+        </section>
+      </div>
+    </header>
+
+    <div class="container">
+      <section id="main_content">
+        <h1>
+<a name="ddf-maven-plugin" class="anchor" href="#ddf-maven-plugin"><span class="octicon octicon-link"></span></a>DDF Maven Plugin</h1>
+
+<p>The ddfclient-maven-plugin enables configuration of the ddf from within a maven project and is intended for use during integration tests.</p>
+
+<p><a href="https://travis-ci.org/betteridiots/ddf-maven-plugin"><img src="https://travis-ci.org/betteridiots/ddf-maven-plugin.png?branch=master" alt="Build Status"></a></p>
+
+<h1>
+<a name="issue-tracking" class="anchor" href="#issue-tracking"><span class="octicon octicon-link"></span></a>Issue Tracking</h1>
+
+<p><a href="JIRA">issues.betteridiots.org/browse/DMP</a></p>
+
+<h2>
+<a name="current-status" class="anchor" href="#current-status"><span class="octicon octicon-link"></span></a>Current Status</h2>
+
+<p>Currently the plugin is in the very early stages. As it is currently designed the ddfclient-maven-plugin simply takes in several parameters and connects to the ddf over ssh to pass in commands for configuration.</p>
+
+<h2>
+<a name="future-plans" class="anchor" href="#future-plans"><span class="octicon octicon-link"></span></a>Future Plans</h2>
+
+<p>The plugin will eventually support more advanced configuration options, to be passed in as parameters in a projects pom. All commands passed in will be checked for errors and all outputs from commands will be used to determine status and catch errors.</p>
+
+<h2>
+<a name="building" class="anchor" href="#building"><span class="octicon octicon-link"></span></a>Building</h2>
+
+<h3>
+<a name="requirements" class="anchor" href="#requirements"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<ul>
+<li>JDK 1.7</li>
+<li>Maven 3</li>
+</ul><h3>
+<a name="how-to-build" class="anchor" href="#how-to-build"><span class="octicon octicon-link"></span></a>How To Build</h3>
+
+<pre><code>git clone https://github.com/betteridiots/ddf-maven-plugin.git
+cd ddf-maven-plugin
+mvn install -DskipTests
+</code></pre>
+
+<p>Note: skipping tests is currently necessary due to the tests expecting ddf to be running locally</p>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Place the following in the build section of your projects pom for basic usage against a single ddf host</p>
+
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.betteridiots.ddf&lt;/groupId&gt;
+  &lt;artifactId&gt;ddf-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;0.1.0-SNAPSHOT&lt;/version&gt;
+  &lt;configuration&gt;
+    &lt;host&gt;localhost&lt;/host&gt;
+    &lt;port&gt;8101&lt;/port&gt;
+    &lt;user&gt;admin&lt;/user&gt;
+    &lt;password&gt;admin&lt;/password&gt;
+  &lt;/configuration&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;install-features&lt;/id&gt;
+      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;install-features&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;paramsFile&gt;resources/ddfFeatures.txt&lt;/paramsFile&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+    &lt;execution&gt;
+      &lt;id&gt;config-ddf&lt;/id&gt;
+      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;config-ddf&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;paramsFile&gt;resources/ddfConfig.txt&lt;/paramsFile&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre>
+
+<h3>
+<a name="for-multiple-ddf-instances" class="anchor" href="#for-multiple-ddf-instances"><span class="octicon octicon-link"></span></a>For Multiple DDF Instances</h3>
+
+<pre><code>&lt;plugin&gt;
+  &lt;groupId&gt;org.betteridiots.ddf&lt;/groupId&gt;
+  &lt;artifactId&gt;ddf-maven-plugin&lt;/artifactId&gt;
+  &lt;version&gt;0.1.0-SNAPSHOT&lt;/version&gt;
+  &lt;executions&gt;
+    &lt;execution&gt;
+      &lt;id&gt;install-features_ddf_1&lt;/id&gt;
+      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;install-features&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;paramsFile&gt;resources/ddfFeatures.txt&lt;/paramsFile&gt;
+        &lt;host&gt;localhost&lt;/host&gt;
+        &lt;port&gt;8101&lt;/port&gt;
+        &lt;user&gt;admin&lt;/user&gt;
+        &lt;password&gt;admin&lt;/password&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+    &lt;execution&gt;
+      &lt;id&gt;install_features_ddf_2&lt;/id&gt;
+      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+      &lt;goals&gt;
+        &lt;goal&gt;install-features&lt;/goal&gt;
+      &lt;/goals&gt;
+      &lt;configuration&gt;
+        &lt;paramsFile&gt;resources/ddfFeatures.txt&lt;/paramsFile&gt;
+        &lt;host&gt;remote_dib_ip&lt;/host&gt;
+        &lt;port&gt;8101&lt;/port&gt;
+        &lt;user&gt;admin&lt;/user&gt;
+        &lt;password&gt;admin&lt;/password&gt;
+      &lt;/configuration&gt;
+    &lt;/execution&gt;
+  &lt;/executions&gt;
+&lt;/plugin&gt;
+</code></pre>
+      </section>
+    </div>
+
+    
+  </body>
+</html>
