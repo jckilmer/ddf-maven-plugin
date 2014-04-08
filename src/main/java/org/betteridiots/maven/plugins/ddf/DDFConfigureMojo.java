@@ -1,21 +1,17 @@
 package org.betteridiots.maven.plugins.ddf;
 
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.betteridiots.ssh.SshExecFactory;
 
-import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 /**
@@ -115,48 +111,13 @@ public class DDFConfigureMojo extends AbstractMojo
         config.put("PreferredAuthentications","password");
 
         // Build JSch Session
-        try
-        {
-            JSch jsch=new JSch();
 
-            Session session=jsch.getSession( user, host, port);
-            session.setPassword(password);
-            session.setConfig(config);
+        SshExecFactory sef = new SshExecFactory();
 
-            // Connect and open an exec channel
-            session.connect();
-            Channel channel=session.openChannel("exec");
+        String commands = params.toString();
 
-            // Pass in commands from array
-            ((ChannelExec)channel).setCommand( params.toString() );
-
-            channel.setInputStream(null);
-
-            ((ChannelExec)channel).setErrStream(System.err);
-
-            InputStream in=channel.getInputStream();
-
-            channel.connect();
-
-            byte[] tmp=new byte[1024];
-            while(true){
-                while(in.available()>0){
-                    int i=in.read(tmp, 0, 1024);
-                    if(i<0)break;
-                    System.out.print(new String(tmp, 0, i));
-                }
-                if(channel.isClosed()){
-                    System.out.println("exit-status: "+channel.getExitStatus());
-                    break;
-                }
-                try{Thread.sleep(1000);}catch(Exception ee){}
-            }
-            channel.disconnect();
-            session.disconnect();
-        }
-        catch(Exception e){
-            e.printStackTrace();
-        }
+        sef.buildChannel(user, password, host, port, config, commands);
+        
     }
 
 }
