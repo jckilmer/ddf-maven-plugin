@@ -50,6 +50,9 @@ public class DDFInstallFeaturesMojo extends AbstractMojo
     @Parameter( property = "config-ddf.port", defaultValue = "8101" )
     private int port;
 
+    @Parameter( property = "install-features.features" )
+    private String[] features;
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
 
@@ -65,35 +68,47 @@ public class DDFInstallFeaturesMojo extends AbstractMojo
         getLog().info( "DDF password is: " + password );
         getLog().info( "DDF parameter file is: " + paramsFile );
 
-        // Initialize FileReader
-        FileReader fileReader = null;
-        try {
-            fileReader = new FileReader(paramsFile);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        if (paramsFile !=null) {
+            // Initialize FileReader
+            FileReader fileReader = null;
+            try {
+                fileReader = new FileReader(paramsFile);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            // Initialize BufferedReader and commands ArrayList
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+
+            // Parse paramsFile into commands single string
+            try {
+                while ((line = bufferedReader.readLine()) != null) {
+                    // Build JSch Session
+
+                    SshExecFactory sef = new SshExecFactory();
+
+                    sef.buildChannel(user, password, host, port, config, line);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try
+            {
+                bufferedReader.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
+        else {
+            for (String feature: features) {
 
-        // Initialize BufferedReader and commands ArrayList
-        BufferedReader bufferedReader = new BufferedReader(fileReader);
-        String line;
-
-        // Parse paramsFile into commands single string
-        try {
-            while ((line = bufferedReader.readLine()) != null) {
-                // Build JSch Session
+                String cmd = "features:install " + feature;
 
                 SshExecFactory sef = new SshExecFactory();
 
-                sef.buildChannel(user, password, host, port, config, line);
+                sef.buildChannel(user, password, host, port, config, cmd);
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        try
-        {
-            bufferedReader.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 }
