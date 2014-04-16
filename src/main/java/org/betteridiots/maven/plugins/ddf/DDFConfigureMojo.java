@@ -28,12 +28,6 @@ public class DDFConfigureMojo extends AbstractMojo
     private String paramsFile;
 
     /**
-     * Array of parameters to be inserted into ddf config command
-     */
-    @Parameter( property = "config-ddf.configs")
-    private String[] configs;
-
-    /**
      * Username credentials for accessing ddf
      */
     @Parameter( property = "config-ddf.user", defaultValue = "admin" )
@@ -56,6 +50,16 @@ public class DDFConfigureMojo extends AbstractMojo
      */
     @Parameter( property = "config-ddf.port", defaultValue = "8101" )
     private int port;
+
+    /**
+     * Config file to be edited
+     */
+    @Parameter( property = "config-ddf.config" )
+    private String config;
+
+    @Parameter( property = "config-ddf.props" )
+    private String[] props;
+
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
@@ -100,15 +104,19 @@ public class DDFConfigureMojo extends AbstractMojo
             }
 	}else{
 
-	    for (String config : configs){
-                params.append(config+"; ");
+            params.append("config:edit " + config + "; ");
+
+	    for (String prop : props){
+                params.append("config:propset " + prop +"; ");
             }
         }
 
+        params.append("config:update;");
+
         // Disable strict host key checking and set auth method to password
-        java.util.Properties config = new java.util.Properties();
-        config.put("StrictHostKeyChecking", "no");
-        config.put("PreferredAuthentications","password");
+        java.util.Properties sshConfig = new java.util.Properties();
+        sshConfig.put("StrictHostKeyChecking", "no");
+        sshConfig.put("PreferredAuthentications","password");
 
         // Build JSch Session
 
@@ -116,7 +124,7 @@ public class DDFConfigureMojo extends AbstractMojo
 
         String commands = params.toString();
 
-        sef.buildChannel(user, password, host, port, config, commands);
+        sef.buildChannel(user, password, host, port, sshConfig, commands);
         
     }
 
