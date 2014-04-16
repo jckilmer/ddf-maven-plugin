@@ -1,9 +1,5 @@
 package org.betteridiots.maven.plugins.ddf;
 
-import com.jcraft.jsch.Channel;
-import com.jcraft.jsch.ChannelExec;
-import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.Session;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -12,14 +8,17 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.betteridiots.ssh.SshExecFactory;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
- * The install-features goal is used to install features for the ddf
+ * The uninstall-features goal is used to uninstall features for the ddf
  */
-@Mojo( name = "install-features", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST )
-public class DDFInstallFeaturesMojo extends AbstractMojo
-{
+@Mojo( name = "uninstall-features", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST)
+public class DDFUninstallFeaturesMojo extends AbstractMojo {
+
     /**
      * File containing DDF commands (optional)
      */
@@ -51,9 +50,9 @@ public class DDFInstallFeaturesMojo extends AbstractMojo
     private int port;
 
     /**
-     * Array of features to install
+     * Array of features to uninstall
      */
-    @Parameter( property = "install-features.features" )
+    @Parameter( property = "uninstall-features.features" )
     private String[] features;
 
     @Override
@@ -106,7 +105,7 @@ public class DDFInstallFeaturesMojo extends AbstractMojo
         else {
             for (String feature: features) {
 
-                String cmd = "features:install " + feature;
+                String cmd = "features:uninstall " + feature;
 
                 SshExecFactory sef = new SshExecFactory();
 
