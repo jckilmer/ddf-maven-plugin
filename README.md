@@ -1,5 +1,5 @@
 # DDF Maven Plugin
-The ddfclient-maven-plugin enables configuration of the ddf from within a maven project and is intended for use during integration tests.
+The ddf-maven-plugin enables configuration of the ddf from within a maven project and is intended for use during integration tests.
 
 [![Build Status](https://travis-ci.org/betteridiots/ddf-maven-plugin.png?branch=master)](https://travis-ci.org/betteridiots/ddf-maven-plugin)
 
@@ -10,7 +10,7 @@ The ddfclient-maven-plugin enables configuration of the ddf from within a maven 
 
 
 ## Current Status
-Currently the plugin is in the very early stages. As it is currently designed the ddfclient-maven-plugin simply takes in several parameters and connects to the ddf over ssh to pass in commands for configuration.
+Currently the plugin is in the very early stages. As it is currently designed the ddf-maven-plugin simply takes in several parameters and connects to the ddf over ssh to pass in commands for configuration.
 
 ## Future Plans
 The plugin will eventually support more advanced configuration options, to be passed in as parameters in a projects pom. All commands passed in will be checked for errors and all outputs from commands will be used to determine status and catch errors.
@@ -42,64 +42,52 @@ Place the following in the build section of your projects pom for basic usage ag
         <user>admin</user>
         <password>admin</password>
       </configuration>
-      <executions>
-        <execution>
-          <id>install-features</id>
-          <phase>pre-integration-test</phase>
-          <goals>
-            <goal>install-features</goal>
-          </goals>
-          <configuration>
-            <paramsFile>resources/ddfFeatures.txt</paramsFile>
-          </configuration>
-        </execution>
-        <execution>
-          <id>config-ddf</id>
-          <phase>pre-integration-test</phase>
-          <goals>
-            <goal>config-ddf</goal>
-          </goals>
-          <configuration>
-            <paramsFile>resources/ddfConfig.txt</paramsFile>
-          </configuration>
-        </execution>
-      </executions>
     </plugin>
-    
-### For Multiple DDF Instances
 
-    <plugin>
-      <groupId>org.betteridiots.ddf</groupId>
-      <artifactId>ddf-maven-plugin</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
-      <executions>
-        <execution>
-          <id>install-features_ddf_1</id>
-          <phase>pre-integration-test</phase>
-          <goals>
-            <goal>install-features</goal>
-          </goals>
-          <configuration>
-            <paramsFile>resources/ddfFeatures.txt</paramsFile>
-			<host>localhost</host>
-            <port>8101</port>
-		    <user>admin</user>
-        	<password>admin</password>
-          </configuration>
-        </execution>
-        <execution>
-          <id>install_features_ddf_2</id>
-          <phase>pre-integration-test</phase>
-          <goals>
-            <goal>install-features</goal>
-          </goals>
-          <configuration>
-            <paramsFile>resources/ddfFeatures.txt</paramsFile>
-			<host>remote_dib_ip</host>
-			<port>8101</port>
-			<user>admin</user>
-			<password>admin</password>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
+### config-ddf goal
+    <execution>
+      <id>configure-something</id>
+      <phase>pre-integration-test</phase>
+      <goals>
+        <goal>config-ddf</goal>
+      </goals>
+      <configuration>
+        <config>ddf.platform.config</config>
+        <props>
+          <prop>host localhost</prop>
+          <prop>port 8181</prop>
+          <prop>http://</prop>
+          <prop>id ddf.local</prop>
+        </props>
+      </configuration>
+    </execution>
+
+### install-features goal
+    <execution>
+      <id>install-some-features</id>
+      <phase>pre-integration-test</phase>
+      <goals>
+        <goal>install-features</goal>
+      </goal>
+      <configuration>
+        <features>
+          <feature>catalog-schematron-plugin</feature>
+          <feature>catalog-transformer-tika</feature>
+        </features>
+      </configuration>
+    </execution>
+
+### uninstall-features goal
+    <execution>
+      <id>uninstall-some-features</id>
+      <phase>pre-integration-test</phase>
+      <goals>
+        <goal>uninstall-features</goal>
+      </goal>
+      <configuration>
+        <features>
+          <feature>catalog-schematron-plugin</feature>
+          <feature>catalog-transformer-tika</feature>
+        </features>
+      </configuration>
+    </execution>

@@ -57,6 +57,9 @@ public class DDFConfigureMojo extends AbstractMojo
     @Parameter( property = "config-ddf.config" )
     private String config;
 
+    /**
+     * Array of properties to set
+     */
     @Parameter( property = "config-ddf.props" )
     private String[] props;
 
