@@ -31,19 +31,19 @@
         <h1>
 <a name="ddf-maven-plugin" class="anchor" href="#ddf-maven-plugin"><span class="octicon octicon-link"></span></a>DDF Maven Plugin</h1>
 
-<p>The ddfclient-maven-plugin enables configuration of the ddf from within a maven project and is intended for use during integration tests.</p>
+<p>The ddf-maven-plugin enables configuration of the ddf from within a maven project and is intended for use during integration tests.</p>
 
 <p><a href="https://travis-ci.org/betteridiots/ddf-maven-plugin"><img src="https://travis-ci.org/betteridiots/ddf-maven-plugin.png?branch=master" alt="Build Status"></a></p>
 
 <h1>
 <a name="issue-tracking" class="anchor" href="#issue-tracking"><span class="octicon octicon-link"></span></a>Issue Tracking</h1>
 
-<p><a href="JIRA">issues.betteridiots.org/browse/DMP</a></p>
+<p><a href="http://issues.betteridiots.org/browse/DMP">JIRA</a></p>
 
 <h2>
 <a name="current-status" class="anchor" href="#current-status"><span class="octicon octicon-link"></span></a>Current Status</h2>
 
-<p>Currently the plugin is in the very early stages. As it is currently designed the ddfclient-maven-plugin simply takes in several parameters and connects to the ddf over ssh to pass in commands for configuration.</p>
+<p>Currently the plugin is in the very early stages. As it is currently designed the ddf-maven-plugin simply takes in several parameters and connects to the ddf over ssh to pass in commands for configuration.</p>
 
 <h2>
 <a name="future-plans" class="anchor" href="#future-plans"><span class="octicon octicon-link"></span></a>Future Plans</h2>
@@ -84,69 +84,64 @@ mvn install -DskipTests
     &lt;user&gt;admin&lt;/user&gt;
     &lt;password&gt;admin&lt;/password&gt;
   &lt;/configuration&gt;
-  &lt;executions&gt;
-    &lt;execution&gt;
-      &lt;id&gt;install-features&lt;/id&gt;
-      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;install-features&lt;/goal&gt;
-      &lt;/goals&gt;
-      &lt;configuration&gt;
-        &lt;paramsFile&gt;resources/ddfFeatures.txt&lt;/paramsFile&gt;
-      &lt;/configuration&gt;
-    &lt;/execution&gt;
-    &lt;execution&gt;
-      &lt;id&gt;config-ddf&lt;/id&gt;
-      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;config-ddf&lt;/goal&gt;
-      &lt;/goals&gt;
-      &lt;configuration&gt;
-        &lt;paramsFile&gt;resources/ddfConfig.txt&lt;/paramsFile&gt;
-      &lt;/configuration&gt;
-    &lt;/execution&gt;
-  &lt;/executions&gt;
 &lt;/plugin&gt;
 </code></pre>
 
 <h3>
-<a name="for-multiple-ddf-instances" class="anchor" href="#for-multiple-ddf-instances"><span class="octicon octicon-link"></span></a>For Multiple DDF Instances</h3>
+<a name="config-ddf-goal" class="anchor" href="#config-ddf-goal"><span class="octicon octicon-link"></span></a>config-ddf goal</h3>
 
-<pre><code>&lt;plugin&gt;
-  &lt;groupId&gt;org.betteridiots.ddf&lt;/groupId&gt;
-  &lt;artifactId&gt;ddf-maven-plugin&lt;/artifactId&gt;
-  &lt;version&gt;0.1.0-SNAPSHOT&lt;/version&gt;
-  &lt;executions&gt;
-    &lt;execution&gt;
-      &lt;id&gt;install-features_ddf_1&lt;/id&gt;
-      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;install-features&lt;/goal&gt;
-      &lt;/goals&gt;
-      &lt;configuration&gt;
-        &lt;paramsFile&gt;resources/ddfFeatures.txt&lt;/paramsFile&gt;
-        &lt;host&gt;localhost&lt;/host&gt;
-        &lt;port&gt;8101&lt;/port&gt;
-        &lt;user&gt;admin&lt;/user&gt;
-        &lt;password&gt;admin&lt;/password&gt;
-      &lt;/configuration&gt;
-    &lt;/execution&gt;
-    &lt;execution&gt;
-      &lt;id&gt;install_features_ddf_2&lt;/id&gt;
-      &lt;phase&gt;pre-integration-test&lt;/phase&gt;
-      &lt;goals&gt;
-        &lt;goal&gt;install-features&lt;/goal&gt;
-      &lt;/goals&gt;
-      &lt;configuration&gt;
-        &lt;paramsFile&gt;resources/ddfFeatures.txt&lt;/paramsFile&gt;
-        &lt;host&gt;remote_dib_ip&lt;/host&gt;
-        &lt;port&gt;8101&lt;/port&gt;
-        &lt;user&gt;admin&lt;/user&gt;
-        &lt;password&gt;admin&lt;/password&gt;
-      &lt;/configuration&gt;
-    &lt;/execution&gt;
-  &lt;/executions&gt;
-&lt;/plugin&gt;
+<pre><code>&lt;execution&gt;
+  &lt;id&gt;configure-something&lt;/id&gt;
+  &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+  &lt;goals&gt;
+    &lt;goal&gt;config-ddf&lt;/goal&gt;
+  &lt;/goals&gt;
+  &lt;configuration&gt;
+    &lt;config&gt;ddf.platform.config&lt;/config&gt;
+    &lt;props&gt;
+      &lt;prop&gt;host localhost&lt;/prop&gt;
+      &lt;prop&gt;port 8181&lt;/prop&gt;
+      &lt;prop&gt;http://&lt;/prop&gt;
+      &lt;prop&gt;id ddf.local&lt;/prop&gt;
+    &lt;/props&gt;
+  &lt;/configuration&gt;
+&lt;/execution&gt;
+</code></pre>
+
+<h3>
+<a name="install-features-goal" class="anchor" href="#install-features-goal"><span class="octicon octicon-link"></span></a>install-features goal</h3>
+
+<pre><code>&lt;execution&gt;
+  &lt;id&gt;install-some-features&lt;/id&gt;
+  &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+  &lt;goals&gt;
+    &lt;goal&gt;install-features&lt;/goal&gt;
+  &lt;/goal&gt;
+  &lt;configuration&gt;
+    &lt;features&gt;
+      &lt;feature&gt;catalog-schematron-plugin&lt;/feature&gt;
+      &lt;feature&gt;catalog-transformer-tika&lt;/feature&gt;
+    &lt;/features&gt;
+  &lt;/configuration&gt;
+&lt;/execution&gt;
+</code></pre>
+
+<h3>
+<a name="uninstall-features-goal" class="anchor" href="#uninstall-features-goal"><span class="octicon octicon-link"></span></a>uninstall-features goal</h3>
+
+<pre><code>&lt;execution&gt;
+  &lt;id&gt;uninstall-some-features&lt;/id&gt;
+  &lt;phase&gt;pre-integration-test&lt;/phase&gt;
+  &lt;goals&gt;
+    &lt;goal&gt;uninstall-features&lt;/goal&gt;
+  &lt;/goal&gt;
+  &lt;configuration&gt;
+    &lt;features&gt;
+      &lt;feature&gt;catalog-schematron-plugin&lt;/feature&gt;
+      &lt;feature&gt;catalog-transformer-tika&lt;/feature&gt;
+    &lt;/features&gt;
+  &lt;/configuration&gt;
+&lt;/execution&gt;
 </code></pre>
       </section>
     </div>
