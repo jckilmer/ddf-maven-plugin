@@ -15,7 +15,7 @@ public class DDFConfigureMojoTest extends AbstractMojoTestCase
     {
         File testPom = new File( getBasedir(), "src/test/resources/unit/config-test/config-test.xml" );
 
-        DDFConfigureMojo mojo = (DDFConfigureMojo) lookupMojo( "config-ddf", testPom );
+        DDFConfigureMojo mojo = (DDFConfigureMojo) lookupMojo( "config", testPom );
 
         // Check for null values
         assertNotNull( mojo );

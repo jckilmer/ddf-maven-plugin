@@ -15,7 +15,7 @@ public class DDFInstallAppMojoTest extends AbstractMojoTestCase
     {
         File testPom = new File( getBasedir(), "src/test/resources/unit/install-app-test/install-app-test.xml" );
 
-        DDFInstallAppMojo mojo = (DDFInstallAppMojo) lookupMojo( "install-app-ddf", testPom );
+        DDFInstallAppMojo mojo = (DDFInstallAppMojo) lookupMojo( "install-app", testPom );
 
         // Check for null values
         assertNotNull( mojo );
