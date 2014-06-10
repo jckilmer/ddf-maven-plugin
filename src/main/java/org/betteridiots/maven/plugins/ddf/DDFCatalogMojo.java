@@ -10,7 +10,7 @@ import org.apache.maven.plugins.annotations.Parameter;
 import org.betteridiots.ssh.SshExecFactory;
 
 
-@Mojo( name="catalog-commands", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST )
+@Mojo( name="catalog", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST )
 public class DDFCatalogMojo extends AbstractMojo {
     /**
      * File containing DDF commands (optional)

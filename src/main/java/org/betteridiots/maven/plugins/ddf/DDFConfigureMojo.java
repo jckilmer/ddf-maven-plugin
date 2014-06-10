@@ -17,7 +17,7 @@ import java.io.IOException;
 /**
  * The config-ddf goal is used for passing configuration options into the ddf kernel
  */
-@Mojo( name = "config-ddf", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST )
+@Mojo( name = "config", defaultPhase = LifecyclePhase.PRE_INTEGRATION_TEST )
 public class DDFConfigureMojo extends AbstractMojo
 {
 

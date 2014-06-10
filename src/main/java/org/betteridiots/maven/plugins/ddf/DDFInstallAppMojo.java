@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Set;
 
-@Mojo( name = "install-app-ddf", defaultPhase = LifecyclePhase.INTEGRATION_TEST )
+@Mojo( name = "install-app", defaultPhase = LifecyclePhase.INTEGRATION_TEST )
 public class DDFInstallAppMojo extends AbstractMojo
 {
 
