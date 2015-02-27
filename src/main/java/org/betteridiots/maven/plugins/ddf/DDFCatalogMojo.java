@@ -55,10 +55,9 @@ public class DDFCatalogMojo extends AbstractMojo {
     private String transformer;
 
     /**
-     * @deprecated
      * Use provider
      */
-    @Parameter( property = "catalog.provider")
+    @Parameter( property = "catalog.provider", required = false, defaultValue = "false")
     private boolean provider;
 
     /**
@@ -70,6 +69,7 @@ public class DDFCatalogMojo extends AbstractMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
 
+        String argsList = " -f";
         String sshCommand = null;
 
         // Log Parameters
@@ -78,14 +78,18 @@ public class DDFCatalogMojo extends AbstractMojo {
         getLog().info( "DDF user is: " + user );
         getLog().info( "DDF password is: " + password );
 
+        if (provider) {
+            argsList = argsList + " -p";
+        }
+
         if (operation.equals("ingest")) {
             if (transformer == null)
                 getLog().error("Transformer not specified, this is required for performing ingest");
             else
-                sshCommand = "catalog:" + operation + " -p -t " + transformer + " " + data;
+                sshCommand = "catalog:" + operation + argsList + transformer + " " + data;
         }
         if (operation.equals("removeall")) {
-            sshCommand = "catalog:" + operation + " -f -p";
+            sshCommand = "catalog:" + operation + argsList;
         }
         else
             getLog().error( "The requested operation: " + operation + " is not supported yet, or it does not exist");
