@@ -1,2 +1,2 @@
-features:install catalog-app
-features:uninstall ddf-source-dummy
+feature:install catalog-app
+feature:uninstall ddf-source-dummy
