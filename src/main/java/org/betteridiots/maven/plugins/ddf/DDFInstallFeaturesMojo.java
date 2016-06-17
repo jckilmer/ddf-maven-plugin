@@ -106,7 +106,7 @@ public class DDFInstallFeaturesMojo extends AbstractMojo
         else {
             for (String feature: features) {
 
-                String cmd = "features:install " + feature;
+                String cmd = "feature:install " + feature;
 
                 SshExecFactory sef = new SshExecFactory();
 

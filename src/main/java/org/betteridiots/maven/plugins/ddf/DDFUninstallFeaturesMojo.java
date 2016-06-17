@@ -105,7 +105,7 @@ public class DDFUninstallFeaturesMojo extends AbstractMojo {
         else {
             for (String feature: features) {
 
-                String cmd = "features:uninstall " + feature;
+                String cmd = "feature:uninstall " + feature;
 
                 SshExecFactory sef = new SshExecFactory();
 
